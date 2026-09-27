@@ -1,0 +1,236 @@
+/* ==========================================================================
+   1. CSS CUSTOM PROPERTIES (THEMING)
+   ========================================================================== */
+:root {
+  --brand-color: #2563eb;
+  --accent-color: #3b82f6;
+  --surface-color: #f8fafc;
+  --card-bg: #ffffff;
+  --primary-text: #0f172a;
+  --secondary-text: #64748b;
+  --border-color: #e2e8f0;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Dark Theme (Stretch Goal) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --brand-color: #3b82f6;
+    --accent-color: #60a5fa;
+    --surface-color: #0f172a;
+    --card-bg: #1e293b;
+    --primary-text: #f8fafc;
+    --secondary-text: #94a3b8;
+    --border-color: #334155;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+    --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* ==========================================================================
+   2. GLOBAL RESETS & STYLES
+   ========================================================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--surface-color);
+  color: var(--primary-text);
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   3. OVERALL PAGE LAYOUT (CSS GRID)
+   ========================================================================== */
+.dashboard-container {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: 100vh;
+}
+
+.main-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ==========================================================================
+   4. SIDEBAR & FLEXBOX
+   ========================================================================== */
+.sidebar {
+  background-color: var(--card-bg);
+  border-right: 1px solid var(--border-color);
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.logo h2 {
+  color: var(--brand-color);
+  font-size: 1.5rem;
+}
+
+.nav-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  text-decoration: none;
+  color: var(--secondary-text);
+  border-radius: 8px;
+  font-weight: 500;
+  transition: background-color 200ms, color 200ms;
+}
+
+.nav-item:hover,
+.nav-item:focus {
+  background-color: var(--surface-color);
+  color: var(--brand-color);
+  outline: none;
+}
+
+.nav-item.active {
+  background-color: var(--brand-color);
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   5. HEADER & FLEXBOX
+   ========================================================================== */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 32px;
+  background-color: var(--card-bg);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.header-title h1 {
+  font-size: 1.5rem;
+  color: var(--primary-text);
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-name {
+  font-weight: 500;
+  color: var(--secondary-text);
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--accent-color);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+/* ==========================================================================
+   6. DASHBOARD CARDS GRID & FLEXBOX
+   ========================================================================== */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  padding: 32px;
+}
+
+.card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  /* Micro-interaction setup */
+  transition: transform 200ms ease, box-shadow 200ms ease;
+  cursor: pointer;
+}
+
+/* Card Micro-interactions (Hover and Keyboard Focus) */
+.card:hover,
+.card:focus {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-header h3 {
+  font-size: 1rem;
+  color: var(--secondary-text);
+  font-weight: 500;
+}
+
+.card-icon {
+  font-size: 1.25rem;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.amount {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--primary-text);
+}
+
+.budget-limit {
+  font-size: 0.875rem;
+  color: var(--secondary-text);
+}
+
+/* ==========================================================================
+   7. RESPONSIVE MEDIA QUERIES
+   ========================================================================== */
+@media (max-width: 768px) {
+  .dashboard-container {
+    grid-template-columns: 1fr; /* Collapses layout to a single column */
+  }
+
+  .sidebar {
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr; /* Cards stack vertically on mobile */
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .header {
+    padding: 16px;
+  }
+}
